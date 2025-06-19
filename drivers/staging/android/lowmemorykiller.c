@@ -64,6 +64,21 @@
 #define CREATE_TRACE_POINTS
 #include "trace/lowmemorykiller.h"
 
+#include <linux/vmpressure.h>
+
+/* Compatibilidade com kernels que não têm LMK embutido */
+static inline bool task_lmk_waiting(struct task_struct *task) { return false; }
+static inline void task_set_lmk_waiting(struct task_struct *task) { }
+#define TIF_MM_RELEASED 0
+
+#ifdef CONFIG_MMU
+extern void wake_oom_reaper(struct task_struct *tsk);
+#else
+static inline void wake_oom_reaper(struct task_struct *tsk) { }
+#endif
+
+
+
 /* to enable lowmemorykiller */
 static int enable_lmk = 1;
 module_param_named(enable_lmk, enable_lmk, int, 0644);
