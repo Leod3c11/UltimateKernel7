@@ -54,7 +54,7 @@ static DEFINE_IDR(zram_index_idr);
 static DEFINE_MUTEX(zram_index_mutex);
 
 static int zram_major;
-static const char *default_compressor = "lzo-rle";
+static const char *default_compressor = "lz4hc";
 
 /* Module params (documentation at end) */
 static unsigned int num_devices = 1;
@@ -927,7 +927,7 @@ static int read_from_bdev_async(struct zram *zram, struct bio_vec *bvec,
 }
 
 #ifdef CONFIG_ZRAM_LRU_WRITEBACK
-static int zram_balance_ratio = 25;	/* nand writeback ratio */
+static int zram_balance_ratio = 75;	/* nand writeback ratio */
 module_param(zram_balance_ratio, int, 0644);
 
 static bool is_bdev_avail(struct zram *zram)
