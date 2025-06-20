@@ -276,8 +276,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -548,8 +548,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -821,8 +821,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -1098,8 +1098,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -1378,8 +1378,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -1648,8 +1648,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -1923,8 +1923,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -2026,8 +2026,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -2127,8 +2127,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -2309,8 +2309,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground	= "0-7";
-					background	= "0-7";
+					foreground	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -2431,8 +2431,8 @@
 					target-sched-class = <EMS_SCHED_FAIR>;
 
 					root		= "0-7";
-					foreground 	= "0-7";
-					background	= "0-7";
+					foreground 	= "0-5";
+					background	= "0-5";
 					top-app		= "0-7";
 					rt		= "0-7";
 				};
@@ -2511,3 +2511,25 @@
 		};
 	};
 };
+
+
+/* Balanced Profile */
+
+        freq_boost {
+            top-app = <60 60 60 60 60 60 50 50>;
+            foreground = <40 40 40 40 40 40 40 40>;
+            background = <20 20 20 20 20 20 20 20>;
+        };
+
+        prio_pinning {
+            enabled = <0 1 0 1 0>;
+            mask = "4-7";
+            prio = <100>;
+        };
+
+        sched_policy {
+            root = <SCHED_POLICY_MIGRATE>;
+            foreground = <SCHED_POLICY_MIGRATE>;
+            top-app = <SCHED_POLICY_BOOST>;
+            background = <SCHED_POLICY_ENERGY>;
+        };
