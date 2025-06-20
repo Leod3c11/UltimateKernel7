@@ -2511,25 +2511,3 @@
 		};
 	};
 };
-
-
-/* Balanced Profile */
-
-        freq_boost {
-            top-app = <60 60 60 60 60 60 50 50>;
-            foreground = <40 40 40 40 40 40 40 40>;
-            background = <20 20 20 20 20 20 20 20>;
-        };
-
-        prio_pinning {
-            enabled = <0 1 0 1 0>;
-            mask = "4-7";
-            prio = <100>;
-        };
-
-        sched_policy {
-            root = <SCHED_POLICY_MIGRATE>;
-            foreground = <SCHED_POLICY_MIGRATE>;
-            top-app = <SCHED_POLICY_BOOST>;
-            background = <SCHED_POLICY_ENERGY>;
-        };
