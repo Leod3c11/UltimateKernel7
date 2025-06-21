@@ -330,7 +330,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -491,7 +491,7 @@
 					enabled  = <  0  1  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -603,7 +603,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -764,7 +764,7 @@
 					enabled  = <  0  1  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -881,7 +881,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1041,7 +1041,7 @@
 					enabled  = <  0  1  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1153,7 +1153,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1321,7 +1321,7 @@
 					enabled  = <  0  1  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1433,7 +1433,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1591,7 +1591,7 @@
 					enabled  = <  0  1  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1708,7 +1708,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1866,7 +1866,7 @@
 					enabled  = <  0  1  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -1983,7 +1983,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -2252,7 +2252,7 @@
 					enabled  = <  0  1  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -2363,7 +2363,7 @@
 					enabled  = <  0  0  0  0  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
@@ -2492,7 +2492,7 @@
 					enabled  = <  0  0  0  1  0  >;
 
 					mask = "6-7";
-					prio = <120>;
+					prio = <110>;
 				};
 
 				init_util {	/* root fg bg ta rt */
