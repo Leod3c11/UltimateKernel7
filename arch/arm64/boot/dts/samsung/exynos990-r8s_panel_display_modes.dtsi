@@ -67,7 +67,7 @@
 					width = <1080>;
 					height = <2400>;
 					/* timing parameters */
-					refresh_rate = <133>;			/* logical refresh rate */
+					refresh_rate = <120>;			/* logical refresh rate */
 					refresh_mode = <1>;				/* 0:NS, 1:HS */
 					panel_refresh_rate = <133>;		/* panel internal refresh rate */
 					panel_refresh_mode = <1>;		/* 0:NS, 1:HS */
