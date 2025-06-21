@@ -279,7 +279,7 @@ int ufs_perf_populate_dt(void *data, struct device_node *np)
 		perf->pm_qos_int_value = 533000;
 
 	if (of_property_read_u32(np, "perf-mif", &perf->pm_qos_mif_value))
-		perf->pm_qos_mif_value = 2288000;
+		perf->pm_qos_mif_value = 3172000;
 
 	/* Default, to issue request fast */
 	if (of_property_read_u32(np, "perf-cluster2", &perf->pm_qos_cluster2_value))
