@@ -2507,7 +2507,29 @@
 				migov {
 					migov_en = < 0 >;
 				};
-			};
-		};
+
+
+	mif {
+		desc = "group_mif";
+		pm-qos-class = <PM_QOS_BUS_THROUGHPUT>;
+		miss-idx = <2>;
+
+		boost-min = <2028000>;
+		force-boost-ms = <16>;
+
+		mif-table = <
+			421000
+			546000
+			676000
+			845000
+			1014000
+			1352000
+			1539000
+			1794000
+			2093000
+			2288000
+			2535000
+			2730000
+			3172000
+		>;
 	};
-};
