@@ -29,10 +29,10 @@ jobs:
         chmod +x ./toolchain/mkbootimg
 
         # Gera dtb.img
-        ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtb.img build/dtconfigs/exynos9830.cfg -d kernel/main/out/arch/arm64/boot/dts/exynos
+        ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtb.img build/dtconfigs/exynos9830.cfg -d kernel/main/arch/arm64/boot/dts/exynos
 
         # Gera dtbo.img
-        ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtbo.img build/dtconfigs/$MODEL.cfg -d kernel/main/out/arch/arm64/boot/dts/samsung
+        ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtbo.img build/dtconfigs/$MODEL.cfg -d kernel/main/arch/arm64/boot/dts/samsung
 
         # Gera ramdisk
         echo "Gerando RAMDisk..."
