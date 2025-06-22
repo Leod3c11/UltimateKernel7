@@ -2366,7 +2366,7 @@
 			};
 			dvfs_gpu {
 				dm-index = <DM_GPU>;
-				available = "false";
+				available = "true";
 				cal_id = <ACPM_DVFS_G3D>;
 				dm_type_name = "dm_gpu";
 			};
@@ -2393,7 +2393,7 @@
 			pm_qos_class_max = <16>; /* PM_QOS_BUS_THROUGHPUT_MAX */
 			ess_flag = <ESS_FLAG_MIF>;
 			dm-index = <DM_MIF>;
-			clocks = <&clock UMUX_MIF_DDRPHY2X>;
+			clocks = <421000 546000 676000 845000 1014000 1352000 1539000 1794000 2093000 2288000 2535000 2730000 3172000>;
 			clock-names = "DEVFREQ";
 
 			/* Delay time */
@@ -2435,11 +2435,11 @@
 				};
 				mode_1 {
 					mode_id = <1>;
-					target_load = "3 2730000:3";
+					target_load = "3 3172000:3";
 					min_sample_time = <50>;
 					hold_sample_time = <100>;
 					hispeed_load = <3>;
-					hispeed_freq = <2730000>;
+					hispeed_freq = <3172000>;
 				};
 			};
 			skew {
