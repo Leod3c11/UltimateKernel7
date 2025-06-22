@@ -63,8 +63,8 @@
 					&r8s_panel_display_mode_1080x2400_96hs
 					&r8s_panel_display_mode_1080x2400_70hs
 					&r8s_panel_display_mode_1080x2400_60hs
-					&r8s_panel_display_mode_1080x2400_52hs
-					&r8s_panel_display_mode_1080x2400_48hs
+					&r8s_panel_display_mode_1080x2400_52ns
+					&r8s_panel_display_mode_1080x2400_48ns
 				>;
 
 				/* fhd */
@@ -267,9 +267,9 @@
 				};
 
 				/* fhd */
-				r8s_panel_display_mode_1080x2400_52hs:
-				r8s_panel_display_mode_1080x2400_52hs {
-					id = PANEL_DISPLAY_MODE_1080x2400_52HS;
+				r8s_panel_display_mode_1080x2400_52ns:
+				r8s_panel_display_mode_1080x2400_52ns {
+					id = PANEL_DISPLAY_MODE_1080x2400_52NS;
 					width = <1080>;
 					height = <2400>;
 					/* timing parameters */
@@ -292,9 +292,9 @@
 				};
 
 				/* fhd */
-				r8s_panel_display_mode_1080x2400_48hs:
-				r8s_panel_display_mode_1080x2400_48hs {
-					id = PANEL_DISPLAY_MODE_1080x2400_48HS;
+				r8s_panel_display_mode_1080x2400_48ns:
+				r8s_panel_display_mode_1080x2400_48ns {
+					id = PANEL_DISPLAY_MODE_1080x2400_48NS;
 					width = <1080>;
 					height = <2400>;
 					/* timing parameters */
