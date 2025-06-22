@@ -33,7 +33,7 @@ jobs:
         make O=out dtboimg
 
     - name: Upload dtbo.img
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dtbo
         path: out/arch/arm64/boot/dtbo.img
