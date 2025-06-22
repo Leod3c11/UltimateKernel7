@@ -28,9 +28,6 @@ jobs:
         chmod +x ./toolchain/mkdtimg
         chmod +x ./toolchain/mkbootimg
 
-        # Copia kernel Image descompactado
-        cp kernel/main/out/arch/arm64/boot/Image build/out/$MODEL/
-
         # Gera dtb.img
         ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtb.img build/dtconfigs/exynos9830.cfg -d kernel/main/out/arch/arm64/boot/dts/exynos
 
