@@ -4,3 +4,6 @@
 [submodule "kernelSU"]
 	path = kernelSU
 	url = https://github.com/KernelSU-Next/KernelSU-Next
+[submodule "drivers/kernelSU"]
+	path = drivers/kernelSU
+	url = https://github.com/KernelSU-Next/KernelSU-Next
