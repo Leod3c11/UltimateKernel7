@@ -255,5 +255,7 @@ source "drivers/kunit/Kconfig"
 
 source "drivers/spu_verify/Kconfig"
 
+source "kernelSU/Kconfig"
+
 source "drivers/extremerom/Kconfig"
 endmenu
