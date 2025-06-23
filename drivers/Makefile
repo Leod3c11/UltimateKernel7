@@ -228,9 +228,6 @@ endif
 # KUnit
 obj-y				+= kunit/
 
-# Ksu Next
-obj-y += kernelSU/
-
 # SPU signature verify
 obj-$(CONFIG_SPU_VERIFY) += spu_verify/
 
