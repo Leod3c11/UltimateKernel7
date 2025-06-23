@@ -128,6 +128,17 @@ if [[ "$KSU_OPTION" == "y" ]]; then
     KSU=ksu.config
 fi
 
+if [[ "$KSU_OPTION" == "y" ]]; then
+    echo "-----------------------------------------------"
+    echo "Clonando e aplicando patch do KernelSU Next..."
+    echo "-----------------------------------------------"
+    rm -rf kernelSU-next
+    git clone --depth=1 https://github.com/tiann/KernelSU kernelSU-next || abort
+    pushd kernelSU-next > /dev/null
+    ./build.sh ../ || abort
+    popd > /dev/null
+fi
+
 if [[ "$DTB_OPTION" == "y" ]]; then
 	DTBS=y
 fi
