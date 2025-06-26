@@ -846,7 +846,7 @@ static struct kobj_attribute cpucl1volt_table =
 __ATTR(cpucl1volt_table, 0644 , show_cpucl1volt_table, store_cpucl1volt_table);
 static struct kobj_attribute cpucl2volt_table =
 __ATTR(cpucl2volt_table, 0644 , show_cpucl2volt_table, store_cpucl2volt_table);
-static struct kobj_attribute cpucl3volt_table =Add commentMore actions
+static struct kobj_attribute cpucl3volt_table =
 __ATTR(cpucl3volt_table, 0644 , show_cpucl3volt_table, store_cpucl3volt_table);
 static struct kobj_attribute cpufreq_min_limit =
 	__ATTR(cpufreq_min_limit, 0644,
