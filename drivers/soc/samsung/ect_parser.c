@@ -17,6 +17,15 @@
 
 #define ARRAY_SIZE32(array)		((u32)ARRAY_SIZE(array))
 
+extern unsigned long arg_cpu_max_c1;
+extern unsigned long arg_cpu_min_c1;
+extern unsigned long arg_cpu_max_c2;
+extern unsigned long arg_cpu_min_c2;
+extern unsigned long arg_gpu_min;
+extern unsigned long arg_gpu_max;
+extern unsigned long arg_mif_min;
+extern unsigned long arg_mif_max;
+
 /* Variable */
 
 static struct ect_info ect_list[];
