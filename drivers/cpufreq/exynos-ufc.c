@@ -9,7 +9,7 @@
  * published by the Free Software Foundation.
  */
 #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
-#define SCALE_SIZE 8
+#define SCALE_SIZE 2
 
 #define AUTO_FILL 1
 #define NOT_FILL 0
@@ -604,15 +604,15 @@ int exynos_cpufreq_update_volt_table()
 	return ret;
 }
 
-#define CPUcl1_DVFS_TYPE 0
+#define CPUCL0_DVFS_TYPE 2
 
-static ssize_t show_cpucl1volt_table(struct kobject *kobj,
+static ssize_t show_cpucl0volt_table(struct kobject *kobj,
 				struct kobj_attribute *attr, char *buf)
 {
-	return fvmap_print(buf, CPUcl1_DVFS_TYPE);
+	return fvmap_print(buf, CPUCL0_DVFS_TYPE);
 }
 
-static ssize_t store_cpucl1volt_table(struct kobject *kobj,
+static ssize_t store_cpucl0volt_table(struct kobject *kobj,
 				struct kobj_attribute *attr, const char *buf,
 				size_t count)
 {
@@ -628,10 +628,10 @@ static ssize_t store_cpucl1volt_table(struct kobject *kobj,
 				return -EINVAL;
 
 			if (tokens == 2)
-				fvmap_patch(CPUcl1_DVFS_TYPE, t[0], t[1]);
+				fvmap_patch(CPUCL0_DVFS_TYPE, t[0], t[1]);
 			else
 				for (i = 0; i < tokens; i++)
-					fvmap_patch(CPUcl1_DVFS_TYPE, domain->freq_table[i].frequency, t[i]);
+					fvmap_patch(CPUCL0_DVFS_TYPE, domain->freq_table[i].frequency, t[i]);
 
 			exynos_cpufreq_update_volt_table();
 		}
@@ -640,15 +640,15 @@ static ssize_t store_cpucl1volt_table(struct kobject *kobj,
 	return count;
 }
 
-#define CPUcl2_DVFS_TYPE 1
+#define CPUCL1_DVFS_TYPE 3
 
-static ssize_t show_cpucl2volt_table(struct kobject *kobj,
+static ssize_t show_cpucl1volt_table(struct kobject *kobj,
 				struct kobj_attribute *attr, char *buf)
 {
-	return fvmap_print(buf, CPUcl2_DVFS_TYPE);
+	return fvmap_print(buf, CPUCL1_DVFS_TYPE);
 }
 
-static ssize_t store_cpucl2volt_table(struct kobject *kobj,
+static ssize_t store_cpucl1volt_table(struct kobject *kobj,
 				struct kobj_attribute *attr, const char *buf,
 				size_t count)
 {
@@ -664,10 +664,10 @@ static ssize_t store_cpucl2volt_table(struct kobject *kobj,
 				return -EINVAL;
 
 			if (tokens == 2)
-				fvmap_patch(CPUcl2_DVFS_TYPE, t[0], t[1]);
+				fvmap_patch(CPUCL1_DVFS_TYPE, t[0], t[1]);
 			else
 				for (i = 0; i < tokens; i++)
-					fvmap_patch(CPUcl2_DVFS_TYPE, domain->freq_table[i].frequency, t[i]);
+					fvmap_patch(CPUCL1_DVFS_TYPE, domain->freq_table[i].frequency, t[i]);
 
 			exynos_cpufreq_update_volt_table();
 		}
@@ -676,15 +676,15 @@ static ssize_t store_cpucl2volt_table(struct kobject *kobj,
 	return count;
 }
 
-#define CPUcl3_DVFS_TYPE 2
+#define CPUCL2_DVFS_TYPE 4
 
-static ssize_t show_cpucl3volt_table(struct kobject *kobj,
+static ssize_t show_cpucl2volt_table(struct kobject *kobj,
 				struct kobj_attribute *attr, char *buf)
 {
-	return fvmap_print(buf, CPUcl3_DVFS_TYPE);
+	return fvmap_print(buf, CPUCL2_DVFS_TYPE);
 }
 
-static ssize_t store_cpucl3volt_table(struct kobject *kobj,
+static ssize_t store_cpucl2volt_table(struct kobject *kobj,
 				struct kobj_attribute *attr, const char *buf,
 				size_t count)
 {
@@ -700,10 +700,10 @@ static ssize_t store_cpucl3volt_table(struct kobject *kobj,
 				return -EINVAL;
 
 			if (tokens == 2)
-				fvmap_patch(CPUcl3_DVFS_TYPE, t[0], t[1]);
+				fvmap_patch(CPUCL2_DVFS_TYPE, t[0], t[1]);
 			else
 				for (i = 0; i < tokens; i++)
-					fvmap_patch(CPUcl3_DVFS_TYPE, domain->freq_table[i].frequency, t[i]);
+					fvmap_patch(CPUCL2_DVFS_TYPE, domain->freq_table[i].frequency, t[i]);
 
 			exynos_cpufreq_update_volt_table();
 		}
@@ -842,12 +842,12 @@ out:
 
 static struct kobj_attribute cpufreq_table =
 	__ATTR(cpufreq_table, 0444, ufc_show_cpufreq_table, NULL);
+static struct kobj_attribute cpucl0volt_table =
+__ATTR(cpucl0volt_table, 0644 , show_cpucl0volt_table, store_cpucl0volt_table);
 static struct kobj_attribute cpucl1volt_table =
 __ATTR(cpucl1volt_table, 0644 , show_cpucl1volt_table, store_cpucl1volt_table);
 static struct kobj_attribute cpucl2volt_table =
 __ATTR(cpucl2volt_table, 0644 , show_cpucl2volt_table, store_cpucl2volt_table);
-static struct kobj_attribute cpucl3volt_table =
-__ATTR(cpucl3volt_table, 0644 , show_cpucl3volt_table, store_cpucl3volt_table);
 static struct kobj_attribute cpufreq_min_limit =
 	__ATTR(cpufreq_min_limit, 0644,
 		ufc_show_cpufreq_min_limit, ufc_store_cpufreq_min_limit);
