@@ -970,15 +970,15 @@ static __init int ufc_init_sysfs(void)
 	if (ret)
 		return ret;
 
+	ret = sysfs_create_file(power_kobj, &cpucl0volt_table.attr);
+	if (ret)
+		return ret;
+		
 	ret = sysfs_create_file(power_kobj, &cpucl1volt_table.attr);
 	if (ret)
 		return ret;
 		
 	ret = sysfs_create_file(power_kobj, &cpucl2volt_table.attr);
-	if (ret)
-		return ret;
-		
-	ret = sysfs_create_file(power_kobj, &cpucl3volt_table.attr);
 	if (ret)
 		return ret;
 
