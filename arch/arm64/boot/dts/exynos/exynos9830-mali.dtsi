@@ -26,12 +26,13 @@
 		#cooling-cells = <2>; /* min followed by max */
 		governor = "interactive";
 		interactive_info = <927000 94 0>;
-		gpu_dvfs_table_size = <14 8>; /*<row col>*/
+		gpu_dvfs_table_size = <15 8>; /*<row col>*/
 		/*  8 columns      freq  down   up  stay  mif   little  middle   big  */
 		gpu_dvfs_table = <
 			927000    78  100   5  3172000  1300000       0       0
 	                845000    78   90   5  2730000  1300000       0       0
 			832000    78   90   5  2730000  1300000       0       0
+			811000    78   90   5  2535000  1300000       0       0
 			767000    78   90   5  2535000  1300000       0       0
 			702000    78   90   5  2535000  1300000       0       0
 			598000    78   90   5  2535000  1300000       0       0
@@ -51,7 +52,7 @@
 		gpu_min_clock = <156000>;
 		gpu_dvfs_start_clock = <260000>;
 		gpu_dvfs_bl_config_clock = <156000>;
-		gpu_default_voltage = <800000>;
+		gpu_default_voltage = <927000>;
 		gpu_cold_minimum_vol = <0>;
 		gpu_voltage_offset_margin = <37500>;
 		gpu_tmu_control = <1>;
