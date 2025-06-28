@@ -30,9 +30,6 @@
 
 #include "cgroup-internal.h"
 
-static int cgroup_procs_write_permission(struct cgroup *src_cgrp, struct cgroup_subsys_state *old_css);
-
-
 #include <linux/cred.h>
 #include <linux/errno.h>
 #include <linux/init_task.h>
@@ -64,17 +61,6 @@ static int cgroup_procs_write_permission(struct cgroup *src_cgrp, struct cgroup_
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/cgroup.h>
-
-/* Gaming control */
-#include <linux/gaming_control.h>
-
-/*
- * pidlists linger the following amount before being destroyed.  The goal
- * is avoiding frequent destruction in the middle of consecutive read calls
- * Expiring in the middle is a performance problem not a correctness one.
- * 1 sec should be enough.
- */
-#define CGROUP_PIDLIST_DESTROY_DELAY	HZ
 
 #define CGROUP_FILE_NAME_MAX		(MAX_CGROUP_TYPE_NAMELEN +	\
 					 MAX_CFTYPE_NAME + 2)
@@ -2832,28 +2818,9 @@ struct task_struct *cgroup_procs_write_start(char *buf, bool threadgroup)
 		tsk = ERR_PTR(-EINVAL);
 		goto out_unlock_threadgroup;
 	}
-	int ret;
-	struct cgroup *cgrp = tsk->cgroups->dfl_cgrp;
-	struct cgroup_subsys_state *of = task_css(tsk, cpu_cgrp_id);
-
 
 	get_task_struct(tsk);
 	goto out_unlock_rcu;
-	rcu_read_unlock();
-
-	ret = cgroup_procs_write_permission(tsk, cgrp);
-	if (!ret)
-		ret = cgroup_attach_task(cgrp, tsk, threadgroup);
-
-	/* Check if the task is a game */
-	if (!memcmp(cgrp->kn->name, "top-app", sizeof("top-app")) && !ret) {
-		game_option(tsk, GAME_RUNNING);
-	} else if (!memcmp(cgrp->kn->name, "background", sizeof("background")) && !ret) {
-		game_option(tsk, GAME_PAUSE);
-	}
-
-	put_task_struct(tsk);
-	goto out_unlock_threadgroup;
 
 out_unlock_threadgroup:
 	cgroup_attach_unlock();
@@ -4749,7 +4716,10 @@ static int cgroup_procs_show(struct seq_file *s, void *v)
 	return 0;
 }
 
-static int cgroup_procs_write_permission(struct cgroup *src_cgrp, struct cgroup *dst_cgrp)
+static int cgroup_procs_write_permission(struct cgroup *src_cgrp,
+					 struct cgroup *dst_cgrp,
+					 struct super_block *sb,
+					 struct cgroup_namespace *ns)
 {
 	struct cgroup *com_cgrp = src_cgrp;
 	struct inode *inode;
@@ -4812,7 +4782,9 @@ static ssize_t cgroup_procs_write(struct kernfs_open_file *of,
 	 * inherited fd attacks.
 	 */
 	saved_cred = override_creds(of->file->f_cred);
-	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp);
+	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp,
+					    of->file->f_path.dentry->d_sb,
+					    ctx->ns);
 	revert_creds(saved_cred);
 	if (ret)
 		goto out_finish;
@@ -4863,7 +4835,9 @@ static ssize_t cgroup_threads_write(struct kernfs_open_file *of,
 	 * inherited fd attacks.
 	 */
 	saved_cred = override_creds(of->file->f_cred);
-	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp);
+	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp,
+					    of->file->f_path.dentry->d_sb,
+					    ctx->ns);
 	revert_creds(saved_cred);
 	if (ret)
 		goto out_finish;
