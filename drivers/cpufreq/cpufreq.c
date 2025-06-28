@@ -30,6 +30,7 @@
 #include <linux/suspend.h>
 #include <linux/syscore_ops.h>
 #include <linux/tick.h>
+#include <linux/ologk.h>
 #ifdef CONFIG_SMP
 #include <linux/sched.h>
 #endif
