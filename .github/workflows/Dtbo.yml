@@ -1,70 +1,55 @@
-name: Build dtbo.img only
+name: CompilaPoura
 
 on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'arch/arm64/configs/exynos9830_defconfig'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'arch/arm64/configs/exynos9830_defconfig'
   workflow_dispatch:
+    inputs:
+      force_build:
+        description: 'Force build even if exynos9830_defconfig is not modified (manual trigger)'
+        type: boolean
+        default: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout kernel source
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-    - name: Set up build environment
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y bc bison flex libssl-dev make libc6-dev libncurses5-dev gcc clang python3 unzip wget git cpio rsync
+      - name: Set up environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libarchive-tools ccache
 
-    - name: Construir boot.img, dtb.img e dtbo.img
-      run: |
-        set -e
+      - name: Build Kernel
+        run: |
+          chmod +x ./build.sh
+          ./build.sh -m r8s -k n
 
-        export MODEL=r8s
-        export BOARD=exynos9830
-        mkdir -p build/out/$MODEL
+      - name: Find built zips
+        id: find_zips
+        run: |
+          ZIP_FILES=$(find . -type f -name "*.zip")
+          if [[ -z "$ZIP_FILES" ]]; then
+            echo "No ZIPs found! Exiting."
+            exit 1
+          fi
+          echo "ZIP_FILES<<EOF" >> $GITHUB_ENV
+          echo "$ZIP_FILES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-        # Torna ferramentas executáveis
-        chmod +x ./toolchain/mkdtimg
-        chmod +x ./toolchain/mkbootimg
-
-        # Gera dtb.img
-        ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtb.img build/dtconfigs/exynos9830.cfg -d kernel/main/arch/arm64/boot/dts/exynos
-
-        # Gera dtbo.img
-        ./toolchain/mkdtimg cfg_create build/out/$MODEL/dtbo.img build/dtconfigs/$MODEL.cfg -d kernel/main/arch/arm64/boot/dts/samsung
-
-        # Gera ramdisk
-        echo "Gerando RAMDisk..."
-        pushd build/ramdisk > /dev/null
-        find . ! -name . | LC_ALL=C sort | cpio -o -H newc -R root:root | gzip > ../out/$MODEL/ramdisk.cpio.gz
-        popd > /dev/null
-
-        # Cria boot.img
-        echo "Gerando boot.img..."
-        ./toolchain/mkbootimg \
-          --base 0x10000000 \
-          --board $BOARD \
-          --cmdline "androidboot.hardware=exynos990 loop.max_part=7" \
-          --dtb build/out/$MODEL/dtb.img \
-          --dtb_offset 0x00000000 \
-          --hashtype sha1 \
-          --header_version 2 \
-          --kernel build/out/$MODEL/Image \
-          --kernel_offset 0x00008000 \
-          --os_patch_level 2024-01 \
-          --os_version 15.0.0 \
-          --pagesize 2048 \
-          --ramdisk build/out/$MODEL/ramdisk.cpio.gz \
-          --ramdisk_offset 0x01000000 \
-          --second_offset 0xF0000000 \
-          --tags_offset 0x00000100 \
-          -o build/out/$MODEL/boot.img
-
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: boot-dtbo-dtb
-        path: |
-          build/out/r8s/dtb.img
-          build/out/r8s/dtbo.img
+      - name: Upload built kernels
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-kernels
+          path: ${{ env.ZIP_FILES }}
