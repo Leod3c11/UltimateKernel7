@@ -40,6 +40,10 @@ obj-$(CONFIG_EXYNOS_DEBUG)       += debug/
 obj-$(CONFIG_EXYNOS_BCM_DBG)    += exynos-bcm_dbg.o exynos-bcm_dbg-dt.o
 obj-$(CONFIG_EXYNOS_BCM_DBG_DUMP)       += exynos-bcm_dbg-dump.o
 
+#CPUHOTPLUG
+obj-$(CONFIG_ARCH_EXYNOS)	+= exynos-cpu_hotplug.o
+obj-$(CONFIG_EXYNOS_HOTPLUG_GOVERNOR)	+= exynos-hotplug_governor.o
+
 # DVFS
 obj-$(CONFIG_EXYNOS_DVFS_MANAGER)	+= exynos-dm.o
 obj-$(CONFIG_EXYNOS_MCINFO)	+= exynos-mcinfo.o
