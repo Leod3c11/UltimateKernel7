@@ -56,7 +56,6 @@ int gpu_custom_max_clock(int gpu_max_clock);
 extern bool gaming_mode;
 extern void game_option(struct task_struct *tsk, enum game_opts opts);
 extern bool battery_idle_gaming(void);
-extern int thermal_bypass_gaming(void);
 extern int fake_freq_gaming(int id);
 extern unsigned long cal_dfs_check_gaming_mode(unsigned int id);
 #else
