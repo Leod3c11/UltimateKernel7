@@ -34,7 +34,6 @@
 #include "../soc/samsung/cal-if/exynos9830/cmucal-node.h"
 
 #define DEFAULT_CPU_LIMIT 3016000
-#define TEMP_EMULATION 20000
 #define STEP_UV			(6250)
 
 static struct delayed_work customs_delayed_work;
