@@ -2,6 +2,7 @@
 #include <linux/debug-snapshot.h>
 #include <soc/samsung/ect_parser.h>
 #include <soc/samsung/cal-if.h>
+#include <linux/gaming_control.h>
 #ifdef CONFIG_EXYNOS9820_BTS
 #include <soc/samsung/bts.h>
 #endif
