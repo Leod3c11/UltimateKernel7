@@ -30,8 +30,7 @@
 
 #include "cgroup-internal.h"
 
-static int cgroup_procs_write_permission(struct cgroup *src_cgrp,
-                                         struct cgroup_subsys_state *old_css);
+static int cgroup_procs_write_permission(struct cgroup *src_cgrp, struct cgroup_subsys_state *old_css);
 
 
 #include <linux/cred.h>
@@ -2842,7 +2841,7 @@ struct task_struct *cgroup_procs_write_start(char *buf, bool threadgroup)
 	goto out_unlock_rcu;
 	rcu_read_unlock();
 
-	ret = cgroup_procs_write_permission(tsk, cgrp, of);
+	ret = cgroup_procs_write_permission(tsk, cgrp);
 	if (!ret)
 		ret = cgroup_attach_task(cgrp, tsk, threadgroup);
 
@@ -4750,10 +4749,7 @@ static int cgroup_procs_show(struct seq_file *s, void *v)
 	return 0;
 }
 
-static int cgroup_procs_write_permission(struct cgroup *src_cgrp,
-					 struct cgroup *dst_cgrp,
-					 struct super_block *sb,
-					 struct cgroup_namespace *ns)
+static int cgroup_procs_write_permission(struct cgroup *src_cgrp, struct cgroup *dst_cgrp)
 {
 	struct cgroup *com_cgrp = src_cgrp;
 	struct inode *inode;
@@ -4816,9 +4812,7 @@ static ssize_t cgroup_procs_write(struct kernfs_open_file *of,
 	 * inherited fd attacks.
 	 */
 	saved_cred = override_creds(of->file->f_cred);
-	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp,
-					    of->file->f_path.dentry->d_sb,
-					    ctx->ns);
+	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp);
 	revert_creds(saved_cred);
 	if (ret)
 		goto out_finish;
@@ -4869,9 +4863,7 @@ static ssize_t cgroup_threads_write(struct kernfs_open_file *of,
 	 * inherited fd attacks.
 	 */
 	saved_cred = override_creds(of->file->f_cred);
-	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp,
-					    of->file->f_path.dentry->d_sb,
-					    ctx->ns);
+	ret = cgroup_procs_write_permission(src_cgrp, dst_cgrp);
 	revert_creds(saved_cred);
 	if (ret)
 		goto out_finish;
