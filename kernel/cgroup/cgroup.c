@@ -30,6 +30,10 @@
 
 #include "cgroup-internal.h"
 
+static int cgroup_procs_write_permission(struct cgroup *src_cgrp,
+                                         struct cgroup_subsys_state *old_css);
+
+
 #include <linux/cred.h>
 #include <linux/errno.h>
 #include <linux/init_task.h>
@@ -2829,6 +2833,10 @@ struct task_struct *cgroup_procs_write_start(char *buf, bool threadgroup)
 		tsk = ERR_PTR(-EINVAL);
 		goto out_unlock_threadgroup;
 	}
+	int ret;
+	struct cgroup *cgrp = tsk->cgroups->dfl_cgrp;
+	struct cgroup_subsys_state *of = task_css(tsk, cpu_cgrp_id);
+
 
 	get_task_struct(tsk);
 	goto out_unlock_rcu;
