@@ -108,6 +108,9 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/task.h>
 
+/* Gaming control */
+#include <linux/gaming_control.h>
+
 /*
  * Minimum number of threads to boot the kernel
  */
