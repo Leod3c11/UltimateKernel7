@@ -179,6 +179,16 @@ config USI_V2
 
 source "drivers/soc/samsung/debug/Kconfig"
 
+config EXYNOS_HOTPLUG_GOVERNOR
+	bool "Exynos HOTPLUG Governor"
+	default n
+	depends on ARCH_EXYNOS
+	depends on CPU_FREQ
+	depends on HOTPLUG_CPU
+	help
+	  Enable HOTPLUG Governor for Exynos SoC.
+	  This module controls number of online cpu.
+
 config EXYNOS_DVFS_MANAGER
 	bool "Exynos DVFS Manager"
 	default n
