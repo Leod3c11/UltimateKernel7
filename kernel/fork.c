@@ -108,6 +108,10 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/task.h>
 
+#ifdef CONFIG_SECURITY_DEFEX
+#include <linux/defex.h>
+#endif
+
 /* Gaming control */
 #include <linux/gaming_control.h>
 
