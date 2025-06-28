@@ -79,6 +79,10 @@ int __cal_dfs_set_rate(unsigned int id, unsigned long rate)
 
 int cal_dfs_set_rate(unsigned int id, unsigned long rate)
 {
+	unsigned long temp = cal_dfs_check_gaming_mode(id);
+	if (temp)
+		rate = temp;
+
 	return __cal_dfs_set_rate(id, rate);
 }
 
@@ -111,10 +115,11 @@ unsigned long cal_dfs_cached_get_rate(unsigned int id)
 
 unsigned long cal_dfs_get_rate(unsigned int id)
 {
-	unsigned long ret;
+	int ret;
 
-	if (cal_check_hiu_dvfs_id && cal_check_hiu_dvfs_id(id))
-		return exynos_hiu_get_freq(id);
+	ret = cal_dfs_check_gaming_mode(id);
+	if (ret)
+		return ret;
 
 	ret = vclk_recalc_rate(id);
 
@@ -132,7 +137,11 @@ int cal_dfs_get_rate_table(unsigned int id, unsigned long *table)
 
 int cal_clk_setrate(unsigned int id, unsigned long rate)
 {
+	unsigned long temp = cal_dfs_check_gaming_mode(id);
 	int ret = -EINVAL;
+
+	if (temp)
+		rate = temp;
 
 	ret = vclk_set_rate(id, rate);
 
@@ -142,6 +151,10 @@ int cal_clk_setrate(unsigned int id, unsigned long rate)
 unsigned long cal_clk_getrate(unsigned int id)
 {
 	unsigned long ret = 0;
+
+	ret = cal_dfs_check_gaming_mode(id);
+	if (ret)
+		return ret;
 
 	ret = vclk_recalc_rate(id);
 
