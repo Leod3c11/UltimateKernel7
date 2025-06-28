@@ -990,7 +990,6 @@ static void esgov_limits(struct cpufreq_policy *policy)
 struct cpufreq_governor energy_step_gov = {
 	.name			= "energy_step",
 	.owner			= THIS_MODULE,
-	.dynamic_switching	= true,
 	.init			= esgov_init,
 	.exit			= esgov_exit,
 	.start			= esgov_start,
