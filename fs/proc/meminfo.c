@@ -41,7 +41,6 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 	long cached;
 	long available;
 	unsigned long pages[NR_LRU_LISTS];
-	unsigned long sreclaimable, sunreclaim;
 	int lru;
 	long rbinfree;
 	long hugepage_pool_pages = 0;
@@ -63,11 +62,11 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 
 	available = si_mem_available();
 	rbinfree = global_zone_page_state(NR_FREE_RBIN_PAGES);
-	sreclaimable = global_node_page_state(NR_SLAB_RECLAIMABLE);
-	sunreclaim = global_node_page_state(NR_SLAB_UNRECLAIMABLE);
 #ifdef CONFIG_HUGEPAGE_POOL
 	hugepage_pool_pages = total_hugepage_pool_pages();
 #endif
+        /* Spoof total RAM to 8GB */
+	i.totalram = 1903320;  // pages (~7.8 GB decimal)
 
 	show_val_kb(m, "MemTotal:       ", i.totalram);
 	show_val_kb(m, "MemFree:        ", i.freeram + rbinfree + hugepage_pool_pages);
@@ -122,11 +121,14 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 	show_val_kb(m, "Mapped:         ",
 		    global_node_page_state(NR_FILE_MAPPED));
 	show_val_kb(m, "Shmem:          ", i.sharedram);
-	show_val_kb(m, "KReclaimable:   ", sreclaimable +
-		    global_node_page_state(NR_KERNEL_MISC_RECLAIMABLE));
-	show_val_kb(m, "Slab:           ", sreclaimable + sunreclaim);
-	show_val_kb(m, "SReclaimable:   ", sreclaimable);
-	show_val_kb(m, "SUnreclaim:     ", sunreclaim);
+	show_val_kb(m, "Slab:           ",
+		    global_node_page_state(NR_SLAB_RECLAIMABLE) +
+		    global_node_page_state(NR_SLAB_UNRECLAIMABLE));
+
+	show_val_kb(m, "SReclaimable:   ",
+		    global_node_page_state(NR_SLAB_RECLAIMABLE));
+	show_val_kb(m, "SUnreclaim:     ",
+		    global_node_page_state(NR_SLAB_UNRECLAIMABLE));
 	seq_printf(m, "KernelStack:    %8lu kB\n",
 		   global_zone_page_state(NR_KERNEL_STACK_KB));
 #ifdef CONFIG_SHADOW_CALL_STACK
@@ -149,7 +151,7 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 	show_val_kb(m, "Committed_AS:   ", committed);
 	seq_printf(m, "VmallocTotal:   %8lu kB\n",
 		   (unsigned long)VMALLOC_TOTAL >> 10);
-	show_val_kb(m, "VmallocUsed:    ", vmalloc_nr_pages());
+	show_val_kb(m, "VmallocUsed:    ", 0ul);
 	show_val_kb(m, "VmallocChunk:   ", 0ul);
 	show_val_kb(m, "Percpu:         ", pcpu_nr_pages());
 
