@@ -31,6 +31,7 @@
 #include <linux/syscore_ops.h>
 #include <linux/tick.h>
 #include <trace/events/power.h>
+#include <linux/ologk.h>
 
 static LIST_HEAD(cpufreq_policy_list);
 
